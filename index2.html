@@ -1,52 +1,920 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Card Moderna</title>
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .card-modern {
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card-modern:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
-    }
-    .card-modern img {
-      height: 200px;
-      object-fit: cover;
-    }
-    .card-modern .card-body {
-      padding: 1.5rem;
-    }
-    .card-modern .btn-custom {
-      background-color: #007bff;
-      color: #fff;
-      border-radius: 50px;
-      padding: 0.5rem 1.5rem;
-      transition: background-color 0.3s;
-    }
-    .card-modern .btn-custom:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Iglesia Bautista Jordán</title>
 
-  <div class="card card-modern" style="width: 22rem;">
-    <div class="card-body">
-      <h5 class="card-title">Título Profesional</h5>
-      <p class="card-text text-muted">Esta es una descripción breve y moderna para tu card. Perfecta para mostrar contenido de manera elegante y clara.</p>
-      <a href="#" class="btn btn-custom">Ver Más</a>
+        <!-- Bootstrap 5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+        <style>
+           /* Navbar inicial transparente */
+            .navbar {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                z-index: 10;
+                transition: background 0.3s;
+            }
+
+            /* Fondo negro cuando scrolleamos fuera del hero */
+            .navbar.scrolled {
+                /* background-color:#280c69; */
+                background-color:#08001a;
+            }
+
+            .navbar-brand img {
+                height: 50px;
+            }
+
+            .nav-link {
+                color: white !important;
+                font-weight: 500;
+                margin-left: 15px;
+                transition: color 0.3s;
+            }
+
+            .nav-link:hover {
+                color: #f4b400 !important;
+            }
+
+            /* Hero con video */
+            .hero {
+                position: relative;
+                height: 100vh;
+                overflow: hidden;
+                color: white;
+                text-align: center;
+            }
+
+            .hero video {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+                filter: brightness(60%);
+            }
+
+            .hero-content {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 2;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+                font-weight: bold;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn-hero {
+                background-color: #f4b400;
+                color: white;
+                border-radius: 30px;
+                padding: 12px 28px;
+                font-weight: bold;
+                text-transform: uppercase;
+                transition: background 0.3s;
+            }
+
+            .btn-hero:hover {
+                background-color: #d39e00;
+                color: white;
+            }
+
+            /* Secciones */
+            section {
+                padding: 80px 0;
+            }
+
+            .bg-light-gray {
+                background-color: #f9f9f9;
+            }
+
+            footer {
+                background: #08001a;
+                color: #bbb;
+                padding: 30px 0;
+                text-align: center;
+            }
+
+            body {
+                scroll-behavior: smooth;
+                font-family: 'Roboto', sans-serif;
+                background-color: #222;
+    color: #f1f1f1;
+            }
+            .pacto{
+                background-color: #A58FFF;
+            }
+            .card-modern {
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+            .card-modern:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+            }
+            .card-modern img {
+                height: 200px;
+                object-fit: cover;
+            }
+            .card-modern .card-body {
+                padding: 1.5rem;
+            }
+            .card-modern .btn-custom {
+                background-color: #007bff;
+                color: #fff;
+                border-radius: 50px;
+                padding: 0.5rem 1.5rem;
+                transition: background-color 0.3s;
+            }
+            .card-modern .btn-custom:hover {
+                background-color: #0056b3;
+            }
+            /* Estilo del mapa */
+            .contact-map {
+                position: relative;
+                width: 100%;
+                height: 500px;
+            }
+            .contact-map iframe {
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+                /* Card flotante */
+            .contact-card {
+                position: absolute;
+                top: 20%;
+                right: 5%;
+                max-width: 350px;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 15px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                padding: 1.5rem;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+            .contact-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            }
+            .contact-card h5 {
+                margin-bottom: 1rem;
+            }
+            .contact-card a {
+                text-decoration: none;
+                color: #007bff;
+            }
+            .contact-card a:hover {
+                text-decoration: underline;
+            }
+
+                /* Responsive */
+            @media (max-width: 768px) {
+                .contact-card {
+                    position: static;
+                    max-width: 90%;
+                    margin: 1rem auto;
+                }
+            }
+                    /* Estilos Generales de la Sección */
+            .pacto-seccion {
+                padding: 60px 20px;
+                font-family: 'Roboto', Arial, sans-serif; /* Usar una fuente moderna */
+            }
+
+            .contenedor-pacto {
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+
+            /* Encabezado y Definición */
+            .pacto-header {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+
+            .pacto-header h1 {
+                font-size: 2.5em;
+                color: #343A40;
+                margin-bottom: 15px;
+            }
+
+            .definicion-pacto {
+                font-size: 1.1em;
+                font-style: italic;
+                color: #6C757D;
+                max-width: 700px;
+                margin: 0 auto;
+                padding: 20px;
+                border-left: 5px solid #007BFF; /* Línea de acento */
+                background-color: #F8F9FA; /* Fondo suave para la definición */
+            }
+
+            /* Lista de Puntos (Grid para modernidad) */
+            .pacto-lista {
+                display: grid;
+                /* 2 columnas en escritorio, 1 columna en móvil (se ajusta con media query) */
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+                gap: 30px;
+            }
+
+            .pacto-punto {
+                position: relative;
+                padding: 30px;
+                border: 1px solid #E9ECEF;
+                border-radius: 8px;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+
+            .pacto-punto:hover {
+                transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            }
+
+            /* Número del Punto (Diseño Circular Destacado) */
+            .numero-punto {
+                position: absolute;
+                top: -15px;
+                left: -15px;
+                width: 40px;
+                height: 40px;
+                background-color: #007BFF; /* Color de acento */
+                color: white;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                font-size: 1.2em;
+                box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+            }
+
+            /* Títulos de los Puntos */
+            .pacto-punto h2 {
+                font-size: 1.4em;
+                color: #007BFF; /* Color de acento en el título */
+                margin-top: 0;
+                margin-bottom: 15px;
+                padding-left: 30px; /* Alinea el título con el texto */
+            }
+
+            /* Listas internas (para los sub-puntos) */
+            .pacto-punto ul {
+                list-style: none; /* Quita las viñetas por defecto */
+                padding-left: 0;
+            }
+
+            .pacto-punto ul li {
+                padding-left: 20px;
+                position: relative;
+                margin-bottom: 10px;
+                color: #495057;
+            }
+
+            /* Crea un marcador (viñeta) moderno */
+            .pacto-punto ul li::before {
+                content: '✓'; 
+                color: #28A745; /* Color verde para el checkmark */
+                font-weight: bold;
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em;
+            }
+
+            /* Responsive: Ajustes para pantallas más pequeñas */
+            @media (max-width: 768px) {
+                .pacto-seccion {
+                    padding: 40px 15px;
+                }
+
+                .pacto-header h1 {
+                    font-size: 2em;
+                }
+                
+                .pacto-lista {
+                    /* Se usa 1 columna en pantallas muy pequeñas */
+                    grid-template-columns: 1fr; 
+                }
+            }
+                
+            /* Colores de acento. Bootstrap usa success (verde), warning (amarillo), info (celeste) */
+            :root {
+                --primary-color: #0d6efd; /* Azul por defecto de Bootstrap */
+            }
+
+            /* Estilo para la Tarjeta de Horario */
+            .horario-card {
+                transition: all 0.3s ease-in-out;
+                border-left: 5px solid; /* Usamos el color de borde de Bootstrap para diferenciar */
+                border-radius: 8px;
+            }
+
+            .horario-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+            }
+
+            /* Estilo del Bloque de Día y Hora (Nuevo Enfoque) */
+            .day-time-focus {
+                font-weight: 700;
+                line-height: 1.2;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #dee2e6; /* Separador sutil */
+            }
+
+            .day-time-focus .day-of-week {
+                display: block;
+                font-size: 1.1em;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+            }
+
+            .day-time-focus .time-main {
+                display: block;
+                font-size: 2.2em; /* La hora es el dato más grande */
+            }
+
+            /* Títulos */
+            .card-title {
+                margin-top: 12px;
+                font-size: 1.3em;
+            }
+
+            /* Lista de detalles */
+            .list-unstyled li {
+                font-size: 0.95em;
+                color: #495057;
+            }
+
+            /* Ajustes de color con las clases de Bootstrap */
+            .text-primary { color: var(--primary-color) !important; }
+            .text-success { color: #198754 !important; }
+            .text-warning { color: #ffc107 !important; }
+            .text-info { color: #0dcaf0 !important; }
+
+            /* Estilos de la Sección General */
+            #quienes-somos {
+                font-family: 'Roboto', sans-serif;
+                color: #343a40;
+            }
+
+            .text-primary { color: var(--primary-color) !important; }
+
+            /* Estilos de la Línea de Tiempo */
+            .timeline {
+                position: relative;
+                padding: 20px 0;
+            }
+
+            /* La línea vertical central */
+            .timeline::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                width: 3px;
+                background: #e9ecef; /* Color gris claro de la línea */
+                transform: translateX(-50%);
+            }
+
+            .timeline-item {
+                margin-bottom: 20px;
+                position: relative;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                left: 0;
+                text-align: right;
+                padding-right: 40px;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                left: 50%;
+                padding-left: 40px;
+                text-align: left;
+            }
+
+            .timeline-content {
+                position: relative;
+                width: 50%;
+                padding: 15px;
+                border-radius: 6px;
+            }
+
+            /* Círculo/Ícono del Hito */
+            .timeline-icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: #fff;
+                border: 3px solid #fff;
+                z-index: 100;
+                transform: translate(-50%, -50%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.2em;
+            }
+
+            /* Ajustes para Responsividad (Móviles) */
+            @media (max-width: 992px) {
+                .timeline::before {
+                    left: 20px; /* Mueve la línea a la izquierda */
+                    transform: translateX(0);
+                }
+                
+                .timeline-item:nth-child(odd) .timeline-content,
+                .timeline-item:nth-child(even) .timeline-content {
+                    width: 100%;
+                    left: 0;
+                    padding-left: 50px; /* Espacio para el ícono */
+                    padding-right: 15px;
+                    text-align: left;
+                }
+
+                .timeline-icon {
+                    left: 20px;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            /* Estilos de las Listas de Ministerios */
+            .ministerio-list li, .mision-list li {
+                padding: 5px 0;
+                font-size: 1.05em;
+            }
+
+            .ministerio-list .text-success { color: #198754 !important; }
+            .mision-list .text-danger { color: #dc3545 !important; }
+
+            /* Estilo para el botón de envío dentro del modal */
+            .custom-submit-btn {
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+
+            .custom-submit-btn:hover {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
+                transform: scale(1.02); /* Pequeño efecto de zoom */
+            }
+
+            /* Estilo para los campos de formulario */
+            .form-control:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* Sombra de enfoque de Bootstrap */
+            }
+
+            /* Asegura que el color del header sea fuerte */
+            .modal-header.bg-primary {
+                background-color: var(--primary-color) !important;
+            }
+
+            .modal-header .btn-close-white {
+                filter: invert(1) grayscale(100%) brightness(200%); /* Hace que el ícono "x" sea blanco */
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- ✅ NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="assets/img/logo.jpg" alt="Logo Iglesia">
+            </a>
+
+            <!-- Botón responsive -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menú -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#hero">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link" href="#enquecreemos">En que creemos</a></li>
+                <li class="nav-item"><a class="nav-link" href="#nuestro-pacto">Nuestro Pacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="#misiones">Misiones</a></li>
+                <li class="nav-item"><a class="nav-link" href="#eventos">Servicios</a></li>
+                <li class="nav-item"><a class="nav-link" href="#devocionales">Devocionales</a></li>
+                <li class="nav-item"><a class="nav-link" href="#predicas">Prédicas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <section class="hero" id="hero">
+            <video autoplay muted loop playsinline>
+            <source src="assets/videos/iglesia.mp4" type="video/mp4">
+            Tu navegador no soporta el video.
+            </video>
+
+            <div class="container hero-content">
+            <h1 class="mb-3">Iglesia Bautista Jodán de Piñonate</h1>
+            <p>Somos la Iglesia de Cristo, proclamamos el Evangelio y vivimos según su Palabra.</p>
+            <p>"Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura." – Marcos 16:15 (RVR1960)</p>
+            <a href="#about" class="btn btn-hero">Conócenos</a>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="text-center">
+                <div class="container">
+                    <div class="text-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
+                        <h2  class="mb-4">QUIÉNES SOMOS</h2>
+                        <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
+                    </div>
+
+                    <div class="row justify-content-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
+                        <div class="col-lg-10">
+                            <p class="lead text-center fw-normal">
+                                Con gozo y gratitud celebramos la fidelidad de Dios a lo largo de <strong>más de tres décadas de ministerio</strong>. 
+                                La Iglesia Bautista Jordán de Piñonate ha crecido sostenida por la gracia y fidelidad de Dios, 
+                                manteniendo firme su compromiso de predicar el Evangelio, discipular a los creyentes y servir a la comunidad.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10" data-aos="zoom-in-up" data-aos-delay="0">
+                            <h3 class="mb-4 text-center text-secondary">Nuestra Historia: Hitos de Fe</h3>
+                            <div class="timeline">
+                                
+                                <div class="timeline-item">
+                                    <div class="timeline-icon bg-primary"><i class="bi bi-hand-thumbs-up-fill"></i></div>
+                                    <div class="timeline-content p-4 border border-primary-subtle bg-white shadow-sm">
+                                        <span class="timeline-date fw-bold text-primary">SEPTIEMBRE 1990</span>
+                                        <h4 class="fw-bold mt-2">Nace una Visión Misionera</h4>
+                                        <p>Dios unió los caminos del misionero <strong>Sheridan E. Stanton</strong> y del <strong>pastor Jorge Dianderas</strong>, quienes, 
+                                            impulsados por la visión del pastor George R. Sledd (Florida, EE. UU.), 
+                                            anhelaron establecer una obra evangelística en el Perú.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item" data-aos="zoom-in-up" data-aos-delay="0">
+                                    <div class="timeline-icon bg-success"><i class="bi bi-church-fill"></i></div>
+                                    <div class="timeline-content p-4 border border-success-subtle bg-white shadow-sm">
+                                        <span class="timeline-date fw-bold text-success">18 DE NOVIEMBRE DE 1990</span>
+                                        <h4 class="fw-bold mt-2">El Primer Servicio</h4>
+                                        <p>Se funda oficialmente la Iglesia. El primer culto se realizó en una casa prestada, en la calle Robles 189, 
+                                            con <strong>18 personas presentes</strong> y una ofrenda de 18 soles, un testimonio del pequeño pero firme comienzo.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item" data-aos="zoom-in-up" data-aos-delay="0">
+                                    <div class="timeline-icon bg-warning"><i class="bi bi-house-door-fill"></i></div>
+                                    <div class="timeline-content p-4 border border-warning-subtle bg-white shadow-sm">
+                                        <span class="timeline-date fw-bold text-warning">ENERO DE 1993</span>
+                                        <h4 class="fw-bold mt-2">Adquisición de la Propiedad</h4>
+                                        <p>El Señor permitió la compra de la propiedad ubicada en <strong>Atanacio Catojeras 102</strong>, donde hasta hoy la iglesia realiza 
+                                            sus cultos y actividades ministeriales.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-5">
+
+                    <div class="row mt-5">
+                        <div class="col-lg-6 mb-4">
+                            <h3 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="bi bi-people-fill me-2 text-primary"></i>Nuestros Ministerios</h3>
+                            <div class="row">
+                                <div class="col-md-6" data-aos="zoom-in-up" data-aos-delay="0">
+                                    <ul class="list-unstyled ministerio-list">
+                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Culto de Oración</li>
+                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Estudio Bíblico</li>
+                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Reunión de Damas</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6" data-aos="zoom-in-up" data-aos-delay="0">
+                                    <ul class="list-unstyled ministerio-list">
+                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Reunión de Niños, Adolescentes y Jóvenes</li>
+                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Escuela Dominical</li>
+                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Discipulado</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4" data-aos="zoom-in-up" data-aos-delay="0">
+                            <h3 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="bi bi-globe-americas me-2 text-primary"></i>Nuestra Visión Misionera</h3>
+                            <p>Como fruto de nuestra visión evangelística, hemos dado origen a dos misiones hijas que continúan extendiendo el mensaje del Evangelio:</p>
+                            <ul class="list-unstyled mision-list">
+                                <li><i class="bi bi-pin-map-fill me-2 text-danger"></i> <strong>Misión Sublime Gracia</strong></li>
+                                <li><i class="bi bi-pin-map-fill me-2 text-danger"></i> <strong>Misión Bautista Jordán</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="my-5">
+                    <div class="row justify-content-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
+                        <div class="col-lg-10">
+                            <p class="lead text-center fw-normal">
+                                Hoy, bajo la dirección pastoral del Pastor Jorge Dianderas, seguimos proclamando:<br>
+                                <strong>“Hasta aquí nos ayudó Jehová.”<br>
+                                1 Samuel 7:12</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+        </section>
+        <!-- EN QUE CREEMOS -->
+        <section id="enquecreemos" class="text-center">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
+                    <h2  class="mb-4">EN QUE CREEMOS</h2>
+                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
+                </div>
+            </div>
+        </section>
+        <!-- NUESTRO PACTO -->
+        <section id="nuestro-pacto" class="bg-light-gray pacto-seccion">
+            <div class="contenedor-pacto">
+                <header class="pacto-header" data-aos="fade-left" data-aos-delay="0">
+                    <h2 class="mb-4">EL PACTO DE LA IGLESIA BAUTISTA JORDÁN DE PIÑONATE </h2>
+                    <p class="definicion-pacto">
+                        <strong>El Pacto</strong> es un acuerdo y compromiso solemne que asumimos como miembros de la Iglesia Bautista Jordán de Piñonate. 
+                        A través de él, nos comprometemos a cumplir con nuestras responsabilidades y obligaciones, andando juntos como un solo cuerpo en Cristo.
+                    </p>
+                </header>
+
+                <div class="pacto-lista">
+                    
+                    <article class="pacto-punto" data-aos="fade-right" data-aos-delay="0">
+                        <div class="numero-punto">1</div>
+                        <h2>Nuestra Adhesión en Cristo</h2>
+                        <p>Habiendo recibido al Señor Jesucristo como nuestro Salvador por la guía del Espíritu Santo, y siendo bautizados en el Nombre del Padre, 
+                            del Hijo y del Espíritu Santo, hoy entramos solemne y gozosamente en este Pacto, uniéndonos de mutuo acuerdo como <strong>un solo cuerpo en Cristo</strong>.</p>
+                    </article>
+
+                    <article class="pacto-punto" data-aos="fade-left" data-aos-delay="0">
+                        <div class="numero-punto">2</div>
+                        <h2>Compromiso con la Iglesia y el Evangelio</h2>
+                        <p>Prometemos, con la ayuda del Espíritu Santo, a:</p>
+                        <ul>
+                            <li><strong>Andar juntos en amor cristiano</strong> y procurar el progreso de la Iglesia en conocimiento, santidad y bienestar.</li>
+                            <li><strong>Apoyar</strong> sus servicios, cultos, ordenanzas, disciplina y doctrinas.</li>
+                            <li>Contribuir <strong>alegre y regularmente</strong> con nuestros Diezmos, Ofrendas y Ofrendas Misioneras.</li>
+                        </ul>
+                    </article>
+
+                    <article class="pacto-punto" data-aos="fade-right" data-aos-delay="0">
+                        <div class="numero-punto">3</div>
+                        <h2>Conducta Personal y Testimonio</h2>
+                        <p>Prometemos mantener la devoción personal y familiar, educar a nuestros hijos y procurar la salvación de otros. Nos comprometemos a:</p>
+                        <ul>
+                            <li><strong>Andar discretamente</strong> siendo justos y honestos.</li>
+                            <li><strong>Evitar</strong> toda clase de chisme, mentira, crítica, difamación o ira excesiva.</li>
+                            <li><strong>Abstenernos</strong> de la venta y consumo de bebidas alcohólicas.</li>
+                            <li>Ser celosos y diligentes en el extendimiento del Reino.</li>
+                        </ul>
+                    </article>
+
+                    <article class="pacto-punto" data-aos="fade-left" data-aos-delay="0">
+                        <div class="numero-punto">4</div>
+                        <h2>Cuidado Mutuo y Reconciliación</h2>
+                        <p>Prometemos cuidarnos unos a otros en amor cristiano:</p>
+                        <ul>
+                            <li>Recordarnos en oración y ayudarnos en caso de enfermedad o aflicción.</li>
+                            <li>Cultivar la amistad, simpatía y cortesía cristiana.</li>
+                            <li>Ser <strong>lentos para ofendernos</strong> y estar siempre <strong>listos para reconciliarnos</strong> según los principios del Salvador.</li>
+                        </ul>
+                    </article>
+
+                    <article class="pacto-punto" data-aos="fade-left" data-aos-delay="0">
+                        <div class="numero-punto">5</div>
+                        <h2>Fidelidad al Mudarnos</h2>
+                        <p>Nos comprometemos a que, al cambiar de domicilio, nos uniremos tan pronto como sea posible a otra Iglesia de nuestra misma fe y comunión, donde podamos llevar a cabo el espíritu de este Pacto y los principios de la Palabra de Dios.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <!-- MISIONES -->
+        <section id="misiones" class="text-center">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
+                    <h2  class="mb-4">MISIONES</h2>
+                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
+                </div>
+            </div>
+        </section>
+        <!-- EVENTOS -->
+        <section id="eventos" class="bg-light-gray text-center">
+                <div class="container">
+                    <div class="text-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
+                        <h2 class="mb-4">HORARIO DE SERVICIOS</h2>
+                        <p class="lead text-secondary">Acompáñanos cada semana en nuestros tiempos de adoración, estudio bíblico y oración.</p>
+                    </div>
+
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        
+                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
+                            <div class="card h-100 shadow-sm horario-card border-success">
+                                <div class="card-body p-4">
+                                    <div class="day-time-focus mb-3 text-success">
+                                        <span class="day-of-week">DOMINGO</span>
+                                        <span class="time-main">10:00 AM</span>
+                                    </div>
+                                    
+                                    <h5 class="card-title fw-bold text-dark">Servicio de Adoración General</h5>
+                                    <p class="card-text text-muted">Nuestro servicio principal, con alabanza congregacional, mensaje bíblico y Santa Cena (Primer Domingo del mes).</p>
+                                    
+                                    <ul class="list-unstyled mt-3">
+                                        <li><i class="bi bi-geo-alt-fill me-2 text-info"></i> Templo Principal</li>
+                                        <li><i class="bi bi-person-fill me-2 text-info"></i> Abierto a toda la familia</li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
+                            <div class="card h-100 shadow-sm horario-card border-warning">
+                                <div class="card-body p-4">
+                                    <div class="day-time-focus mb-3 text-warning">
+                                        <span class="day-of-week">MIÉRCOLES</span>
+                                        <span class="time-main">7:30 PM</span>
+                                    </div>
+
+                                    <h5 class="card-title fw-bold text-dark">Estudio Bíblico y Oración</h5>
+                                    <p class="card-text text-muted">Un tiempo más íntimo y enfocado en la enseñanza para crecer en el conocimiento de la Palabra de Dios.</p>
+                                    
+                                    <ul class="list-unstyled mt-3">
+                                        <li><i class="bi bi-geo-alt-fill me-2 text-info"></i> Salón de Conferencias</li>
+                                        <li><i class="bi bi-people-fill me-2 text-info"></i> Grupos pequeños disponibles</li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
+                            <div class="card h-100 shadow-sm horario-card border-info">
+                                <div class="card-body p-4">
+                                    <div class="day-time-focus mb-3 text-info">
+                                        <span class="day-of-week">SÁBADO</span>
+                                        <span class="time-main">5:00 PM</span>
+                                    </div>
+
+                                    <h5 class="card-title fw-bold text-dark">Reunión de Jóvenes</h5>
+                                    <p class="card-text text-muted">Un espacio vibrante para jóvenes y adolescentes con música, juegos y una reflexión sobre temas actuales.</p>
+                                    
+                                    <ul class="list-unstyled mt-3">
+                                        <li><i class="bi bi-geo-alt-fill me-2 text-info"></i> Auditorio Anexo</li>
+                                        <li><i class="bi bi-calendar-event-fill me-2 text-info"></i> Verificar eventos especiales</li>
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </section>
+        <!-- DEVOCIONALES -->
+        <section id="devocionales" class="text-center">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-left" data-aos-delay="0">
+                    <h2  class="mb-4">DEVOCIONALES</h2>
+                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
+                </div>
+            </div>
+        </section>
+        <!-- PREDICAS -->
+        <section id="predicas" class="bg-light-gray text-center">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
+                    <h2  class="mb-4">PREDICAS</h2>
+                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
+                </div>
+            </div>
+        </section>
+        <!-- CONTACTO -->
+        <section id="contacto" class="text-center ">
+            <h2 class="mb-4">CONTACTENOS</h2>
+            <p class="lead text-secondary">Acompáñanos cada semana en nuestros tiempos de adoración, estudio bíblico y oración.</p>
+            <div class="contact-map">
+                <!-- Mapa de Google Maps -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.557823873589!2d-77.04874683953294!3d-12.027591425372298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cf244e0ae651%3A0xb18d4dac2855494!2sIglesia%20Bautista%20Jord%C3%A0n!5e0!3m2!1ses-419!2scl!4v1760373702584!5m2!1ses-419!2scl" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <!-- Card de contacto flotante -->
+                <div class="contact-card">
+                    <h5>Contáctanos</h5>
+                    <p><strong>Dirección:</strong>Jr. Atanacio Catojeras 102 -104, San Martín de Porres, Lima, Perú</p>
+                    <p><strong>Teléfono:</strong> +56 9 1234 5678</p>
+                    <p><strong>Email:</strong> <a href="mailto:iglesiabautistajordanpinonate@gmail.com" target="_blank">iglesiabautistajordanpinonate@gmail.com</a></p>
+                    <a href="#"  data-bs-toggle="modal" data-bs-target="#contactoModal">Enviar mensaje</a>
+                </div>
+            </div>
+        </section>
+<div class="modal fade" id="contactoModal" tabindex="-1" aria-labelledby="contactoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="contactoModalLabel">
+                    <i class="bi bi-chat-dots-fill me-2"></i> Envíanos un Mensaje
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            
+            <div class="modal-body">
+                <p class="text-center text-secondary mb-4">
+                    Estamos aquí para ayudarte. Por favor, llena los campos y te responderemos a la brevedad.
+                </p>
+                
+                <form id="contactForm">
+                    
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="asunto" class="form-label">Asunto (Oración, Pregunta, etc.)</label>
+                        <input type="text" class="form-control" id="asunto">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mensaje" class="form-label">Tu Mensaje / Petición de Oración</label>
+                        <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg custom-submit-btn">
+                            <i class="bi bi-send-fill me-2"></i> Enviar Mensaje
+                        </button>
+                    </div>
+                </form>
+                </div>
+        </div>
     </div>
-  </div>
+</div>
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2025 Iglesia Vida Nueva | Todos los derechos reservados</p>
+        </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- JS para cambio de color en navbar al hacer scroll -->
+
+        <script>
+            const navbar = document.querySelector(".navbar");
+            const heroSection = document.querySelector("#hero");
+
+            window.addEventListener("scroll", () => {
+                const heroHeight = heroSection.offsetHeight;
+                if (window.scrollY >= heroHeight - 10) {
+                navbar.classList.add("scrolled"); // navbar negro
+                } else {
+                navbar.classList.remove("scrolled"); // navbar transparente
+                }
+            });
+
+        </script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            // Inicializar la librería AOS
+            AOS.init({
+                duration: 1000, // Duración predeterminada de la animación en milisegundos (1 segundo)
+                once: true      // La animación solo se ejecuta una vez al hacer scroll hacia abajo
+            });
+        </script>
+    </body>
 </html>
