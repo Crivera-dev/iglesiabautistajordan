@@ -11,6 +11,62 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
+        <!-- PhotoSwipe -->
+            <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+
+        <style>
+             .gallery-container {
+            margin-bottom: 60px;
+        }
+
+        /* 🎨 Layout tipo collage con grid */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 8px;
+            grid-gap: 15px;
+            grid-auto-flow: dense;
+        }
+
+        /* Variaciones de tamaño (crea el efecto collage) */
+        .masonry-item:nth-child(6n+1) { grid-row: span 26; }
+        .masonry-item:nth-child(6n+2) { grid-row: span 20; }
+        .masonry-item:nth-child(6n+3) { grid-row: span 28; }
+        .masonry-item:nth-child(6n+4) { grid-row: span 18; }
+        .masonry-item:nth-child(6n+5) { grid-row: span 22; }
+        .masonry-item:nth-child(6n+6) { grid-row: span 25; }
+
+        .masonry-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .masonry-item img {
+            width: auto;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0px;
+            display: block;
+        }
+.masonry-grid {
+  grid-auto-rows: auto;
+}
+        .masonry-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .pswp__bg {
+            background: rgba(0, 0, 0, 0.95) !important;
+        }
+        .pswp__img {
+            object-fit: contain !important;
+            max-width: 100%;
+        }
+        </style>
     </head>
     <body>
 
@@ -466,6 +522,15 @@
         <section id="predicas" class="text-center">
             <div class="container">
                 <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
+                    <h2  class="mb-4">GALERIA DE FOTOS</h2>
+                    <div id="contenedorGalerias" class="row gy-5"></div>
+                </div>
+            </div>
+        </section>
+        <!-- PREDICAS -->
+        <section id="galeria" class="text-center">
+            <div class="container">
+                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
                     <h2  class="mb-4">PREDICAS</h2>
                     <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
                 </div>
@@ -537,6 +602,16 @@
                         </form>
                         </div>
                 </div>
+            </div>
+        </div>
+        <!-- Modal para ver imagen -->
+        <div class="modal fade" id="modalFoto" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-body text-center p-0">
+                <img id="imagenModal" src="" class="modal-img" alt="">
+                </div>
+            </div>
             </div>
         </div>
         <!-- FOOTER -->
@@ -649,5 +724,80 @@
                 once: true      // La animación solo se ejecuta una vez al hacer scroll hacia abajo
             });
         </script>
+<script type="module">
+    import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js";
+    import PhotoSwipe from "https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js";
+
+    const apiKey = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
+    const folderId = "198wIK8CuPewt3G2gAKxVmlKQx-cSp9tg";
+
+    async function listarCarpetas() {
+      const res = await fetch(
+        `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and mimeType='application/vnd.google-apps.folder'&fields=files(id,name)&key=${apiKey}`
+      );
+      const data = await res.json();
+      for (const carpeta of data.files) {
+        await mostrarGaleriaDeCarpeta(carpeta);
+      }
+    }
+
+    async function listarFotosDeCarpeta(carpetaId) {
+      const res = await fetch(
+        `https://www.googleapis.com/drive/v3/files?q='${carpetaId}' in parents and mimeType contains 'image/' and trashed=false&fields=files(id,name,thumbnailLink)&key=${apiKey}`
+      );
+      const data = await res.json();
+      return data.files;
+    }
+
+    async function mostrarGaleriaDeCarpeta(carpeta) {
+      const fotos = await listarFotosDeCarpeta(carpeta.id);
+      if (!fotos || fotos.length === 0) return;
+
+      const contenedor = document.getElementById("contenedorGalerias");
+
+      const seccion = document.createElement("div");
+      seccion.classList.add("gallery-container");
+
+      const titulo = document.createElement("h2");
+      titulo.textContent = carpeta.name;
+      seccion.appendChild(titulo);
+
+      const galeria = document.createElement("div");
+      galeria.classList.add("masonry-grid", "pswp-gallery");
+
+      fotos.forEach(foto => {
+        const fullUrl = `https://lh3.googleusercontent.com/d/${foto.id}=w2000`;
+        const thumbUrl = foto.thumbnailLink || `https://drive.google.com/uc?id=${foto.id}`;
+
+        const item = document.createElement("a");
+        item.href = fullUrl;
+        item.classList.add("masonry-item");
+        item.setAttribute("data-pswp-src", fullUrl);
+        item.setAttribute("data-caption", foto.name);
+
+        const img = document.createElement("img");
+        img.src = thumbUrl;
+        img.alt = foto.name;
+
+        item.appendChild(img);
+        galeria.appendChild(item);
+      });
+
+      seccion.appendChild(galeria);
+      contenedor.appendChild(seccion);
+
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: galeria,
+        children: 'a',
+        pswpModule: PhotoSwipe,
+        showHideAnimationType: 'zoom',
+        bgOpacity: 0.95,
+        loop: true
+      });
+      lightbox.init();
+    }
+
+    listarCarpetas();
+  </script>
     </body>
 </html>

@@ -1,653 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Iglesia Bautista Jordán</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Galería tipo collage</title>
 
-        <!-- Bootstrap 5 -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-    </head>
-    <body>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- PhotoSwipe -->
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
 
-        <!-- ✅ NAVBAR -->
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-            <!-- Logo -->
-            <a class="navbar-brand" href="#">
-                <img src="assets/img/logo.png" alt="Logo Iglesia">
-            </a>
+    <style>
+        body {
+        background-color: #f8f9fa;
+        font-family: 'Roboto', sans-serif;
+        }
 
-            <!-- Botón responsive -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        h2 {
+        margin-top: 40px;
+        font-weight: 600;
+        color: #0d3b66;
+        border-left: 5px solid #0d6efd;
+        padding-left: 10px;
+        }
 
-            <!-- Menú -->
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#hero">Inicio</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">Nosotros</a></li>
-                <li class="nav-item"><a class="nav-link" href="#enquecreemos">En que creemos</a></li>
-                <li class="nav-item"><a class="nav-link" href="#nuestro-pacto">Nuestro Pacto</a></li>
-                <li class="nav-item"><a class="nav-link" href="#misiones">Misiones</a></li>
-                <li class="nav-item"><a class="nav-link" href="#eventos">Servicios</a></li>
-                <li class="nav-item"><a class="nav-link" href="#devocionales">Devocionales</a></li>
-                <li class="nav-item"><a class="nav-link" href="#predicas">Prédicas</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
-                </ul>
-            </div>
-            </div>
-        </nav>
+        .gallery-container {
+        margin-bottom: 60px;
+        }
 
-        <!-- HERO SECTION -->
-        <section class="hero" id="hero">
-            <video autoplay muted loop playsinline>
-            <source src="assets/videos/iglesia.mp4" type="video/mp4">
-            Tu navegador no soporta el video.
-            </video>
+        /* 🎨 Layout tipo collage con grid */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 8px;
+            grid-gap: 15px;
+            grid-auto-flow: dense;
+        }
 
-            <div class="container hero-content">
-            <h1 class="mb-3">Iglesia Bautista Jodán de Piñonate</h1>
-            <p>Somos la Iglesia de Cristo, proclamamos el Evangelio y vivimos según su Palabra.</p>
-            <p>"Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura." – Marcos 16:15 (RVR1960)</p>
-            <a href="#about" class="btn btn-hero">Conócenos</a>
-            </div>
-        </section>
-        <!-- ABOUT -->
-        <section id="about" class="text-center">
-                <div class="container">
-                    <div class="text-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
-                        <h2  class="mb-4">QUIÉNES SOMOS</h2>
-                        <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
-                    </div>
+        /* Variaciones de tamaño (crea el efecto collage) */
+        .masonry-item:nth-child(6n+1) { grid-row: span 26; }
+        .masonry-item:nth-child(6n+2) { grid-row: span 20; }
+        .masonry-item:nth-child(6n+3) { grid-row: span 28; }
+        .masonry-item:nth-child(6n+4) { grid-row: span 18; }
+        .masonry-item:nth-child(6n+5) { grid-row: span 22; }
+        .masonry-item:nth-child(6n+6) { grid-row: span 25; }
 
-                    <div class="row justify-content-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
-                        <div class="col-lg-10">
-                            <p class="lead text-center fw-normal">
-                                Con gozo y gratitud celebramos la fidelidad de Dios a lo largo de <strong>más de tres décadas de ministerio</strong>. 
-                                La Iglesia Bautista Jordán de Piñonate ha crecido sostenida por la gracia y fidelidad de Dios, 
-                                manteniendo firme su compromiso de predicar el Evangelio, discipular a los creyentes y servir a la comunidad.
-                            </p>
-                        </div>
-                    </div>
+        .masonry-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
 
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10" data-aos="zoom-in-up" data-aos-delay="0">
-                            <h3 class="mb-4 text-center text-secondary">Nuestra Historia: Hitos de Fe</h3>
-                            <div class="timeline">
-                                
-                                <div class="timeline-item">
-                                    <div class="timeline-icon bg-primary"><i class="bi bi-hand-thumbs-up-fill"></i></div>
-                                    <div class="timeline-content p-4 border border-primary-subtle bg-white shadow-sm">
-                                        <span class="timeline-date fw-bold text-primary">SEPTIEMBRE 1990</span>
-                                        <h4 class="fw-bold mt-2">Nace una Visión Misionera</h4>
-                                        <p>Dios unió los caminos del misionero <strong>Sheridan E. Stanton</strong> y del <strong>pastor Jorge Dianderas</strong>, quienes, 
-                                            impulsados por la visión del pastor George R. Sledd (Florida, EE. UU.), 
-                                            anhelaron establecer una obra evangelística en el Perú.</p>
-                                    </div>
-                                </div>
+        .masonry-item img {
+            width: auto;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0px;
+            display: block;
+        }
+.masonry-grid {
+  grid-auto-rows: auto;
+}
+        .masonry-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
 
-                                <div class="timeline-item" data-aos="zoom-in-up" data-aos-delay="0">
-                                    <div class="timeline-icon bg-success"><i class="bi bi-cake"></i></div>
-                                    <div class="timeline-content p-4 border border-success-subtle bg-white shadow-sm">
-                                        <span class="timeline-date fw-bold text-success">18 DE NOVIEMBRE DE 1990</span>
-                                        <h4 class="fw-bold mt-2">El Primer Servicio</h4>
-                                        <p>Se funda oficialmente la Iglesia. El primer culto se realizó en una casa prestada, en la calle Robles 189, 
-                                            con <strong>18 personas presentes</strong> y una ofrenda de 18 soles, un testimonio del pequeño pero firme comienzo.</p>
-                                    </div>
-                                </div>
+        .pswp__bg {
+            background: rgba(0, 0, 0, 0.95) !important;
+        }
+        .pswp__img {
+            object-fit: contain !important;
+            max-width: 100%;
+        }
+    </style>
+</head>
 
-                                <div class="timeline-item" data-aos="zoom-in-up" data-aos-delay="0">
-                                    <div class="timeline-icon bg-warning"><i class="bi bi-house-door-fill"></i></div>
-                                    <div class="timeline-content p-4 border border-warning-subtle bg-white shadow-sm">
-                                        <span class="timeline-date fw-bold text-warning">ENERO DE 1993</span>
-                                        <h4 class="fw-bold mt-2">Adquisición de la Propiedad</h4>
-                                        <p>El Señor permitió la compra de la propiedad ubicada en <strong>Atanacio Catojeras 102</strong>, donde hasta hoy la iglesia realiza 
-                                            sus cultos y actividades ministeriales.</p>
-                                    </div>
-                                </div>
+<body class="container py-4">
+  <h1 class="text-center mb-5">Galerías de Fotos</h1>
+  <div id="contenedorGalerias"></div>
 
-                                <div class="timeline-item" data-aos="zoom-in-up" data-aos-delay="0">
-                                    <div class="timeline-icon bg-info"><i class="bi bi-building"></i></div>
-                                    <div class="timeline-content p-4 border border-info-subtle bg-white shadow-sm">
-                                        <span class="timeline-date fw-bold text-info">2008</span>
-                                        <h4 class="fw-bold mt-2">La Construcción del Templo</h4>
-                                        <p>La Iglesia Bautista Jordán de Piñonate inició, con fe y unidad, la construcción de su nuevo templo, confiando en la 
-                                            provisión de Dios. Cada etapa —desde la estructura hasta los acabados y nuevos salones— fue posible gracias a las 
-                                            ofrendas de amor y el esfuerzo de los hermanos. Hoy, este lugar es testimonio vivo de la fidelidad de Dios y del 
-                                            corazón servicial de Su pueblo.
-                                        </p>
-                                    </div>
-                                </div>
+  <script type="module">
+    import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js";
+    import PhotoSwipe from "https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js";
 
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <hr class="my-5">
+    const apiKey = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
+    const folderId = "198wIK8CuPewt3G2gAKxVmlKQx-cSp9tg";
 
-                    <div class="row mt-5" style="background-color: #FFF; padding: 20px;">
-                        <div class="col-lg-6 mb-4">
-                            <h3 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="bi bi-people-fill me-2 text-primary"></i>Nuestros Ministerios</h3>
-                            <div class="row">
-                                <div class="col-md-6" data-aos="zoom-in-up" data-aos-delay="0">
-                                    <ul class="list-unstyled ministerio-list">
-                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Culto de Oración</li>
-                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Estudio Bíblico</li>
-                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Reunión de Damas</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6" data-aos="zoom-in-up" data-aos-delay="0">
-                                    <ul class="list-unstyled ministerio-list">
-                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Reunión de Niños, Adolescentes y Jóvenes</li>
-                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Escuela Dominical</li>
-                                        <li><i class="bi bi-check-circle-fill me-2 text-success"></i> Discipulado</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+    async function listarCarpetas() {
+      const res = await fetch(
+        `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and mimeType='application/vnd.google-apps.folder'&fields=files(id,name)&key=${apiKey}`
+      );
+      const data = await res.json();
+      for (const carpeta of data.files) {
+        await mostrarGaleriaDeCarpeta(carpeta);
+      }
+    }
 
-                        <div class="col-lg-6 mb-4" data-aos="zoom-in-up" data-aos-delay="0">
-                            <h3 class="fw-bold text-dark mb-4 border-bottom pb-2"><i class="bi bi-globe-americas me-2 text-primary"></i>Nuestra Visión Misionera</h3>
-                            <p>Como fruto de nuestra visión evangelística, hemos dado origen a dos misiones hijas que continúan extendiendo el mensaje del Evangelio:</p>
-                            <ul class="list-unstyled mision-list">
-                                <li><i class="bi bi-pin-map-fill me-2 text-danger"></i> <strong>Misión Sublime Gracia</strong></li>
-                                <li><i class="bi bi-pin-map-fill me-2 text-danger"></i> <strong>Misión Bautista Jordán</strong></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <hr class="my-5">
-                    <div class="row justify-content-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
-                        <div class="col-lg-10">
-                            <p class="lead text-center fw-normal">
-                                Hoy, bajo la dirección pastoral del Pastor Jorge Dianderas, seguimos proclamando:<br>
-                                <strong>“Hasta aquí nos ayudó Jehová.”<br>
-                                1 Samuel 7:12</strong>
-                            </p>
-                        </div>
-                    </div>
+    async function listarFotosDeCarpeta(carpetaId) {
+      const res = await fetch(
+        `https://www.googleapis.com/drive/v3/files?q='${carpetaId}' in parents and mimeType contains 'image/' and trashed=false&fields=files(id,name,thumbnailLink)&key=${apiKey}`
+      );
+      const data = await res.json();
+      return data.files;
+    }
 
-                </div>
-        </section>
-        <!-- EN QUE CREEMOS -->
-        <section id="enquecreemos" class="text-center bg-light-gray ">
-            <div class="container">
-                <div class="text-center mb-5" data-aos="fade-right">
-                    <h2 class="mb-3">EN QUÉ CREEMOS</h2>
-                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
-                </div>
+    async function mostrarGaleriaDeCarpeta(carpeta) {
+      const fotos = await listarFotosDeCarpeta(carpeta.id);
+      if (!fotos || fotos.length === 0) return;
 
-                <div class="credo-contenedor mx-auto" data-aos="fade-up">
-                    <p class="credo-intro">
-                        En la <strong>Iglesia Bautista Jordán de Piñonate</strong> creemos en un solo Dios verdadero, existente eternamente en tres personas: <strong>Padre, Hijo y Espíritu Santo</strong>.
-                    </p>
+      const contenedor = document.getElementById("contenedorGalerias");
 
-                    <div class="credo-bloque">
-                        <i class="bi bi-book text-primary"></i>
-                        <p>Creemos que la <strong>Biblia</strong> es la Palabra inspirada de Dios, perfecta y suficiente como única regla de fe y práctica.</p>
-                    </div>
+      const seccion = document.createElement("div");
+      seccion.classList.add("gallery-container");
 
-                    <div class="credo-bloque">
-                        <i class="bi bi-cross text-primary"></i>
-                        <p>Afirmamos que la <strong>salvación</strong> es por gracia, mediante la fe en Jesucristo, quien murió y resucitó para redimirnos del pecado. Creemos que Cristo es el único mediador y Señor de la Iglesia, la cual debe vivir en obediencia a Su Palabra y proclamar el Evangelio a toda criatura.</p>
-                    </div>
+      const titulo = document.createElement("h2");
+      titulo.textContent = carpeta.name;
+      seccion.appendChild(titulo);
 
-                    <div class="credo-bloque">
-                        <i class="bi bi-building text-primary"></i>
-                        <p>Reconocemos que la <strong>Iglesia</strong> es local y autónoma, instituida por Cristo mismo, y que las dos ordenanzas bíblicas son el <strong>bautismo por inmersión</strong> y la <strong>Cena del Señor</strong>.</p>
-                    </div>
+      const galeria = document.createElement("div");
+      galeria.classList.add("masonry-grid", "pswp-gallery");
 
-                    <div class="credo-bloque">
-                        <i class="bi bi-sun text-primary"></i>
-                        <p>Esperamos con esperanza viva la <strong>segunda venida</strong> de Jesucristo, quien reinará con poder y gloria, y creemos en la <strong>vida eterna</strong> para los salvos y en la realidad del juicio final.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- NUESTRO PACTO -->
-        <section id="nuestro-pacto" class="pacto-seccion">
-            <div class="contenedor-pacto">
-                <header class="pacto-header" data-aos="fade-left" data-aos-delay="0">
-                    <h2 class="mb-4">EL PACTO DE LA IGLESIA BAUTISTA JORDÁN DE PIÑONATE </h2>
-                    <p class="definicion-pacto">
-                        <strong>El Pacto</strong> es un acuerdo y compromiso solemne que asumimos como miembros de la Iglesia Bautista Jordán de Piñonate. 
-                        A través de él, nos comprometemos a cumplir con nuestras responsabilidades y obligaciones, andando juntos como un solo cuerpo en Cristo.
-                    </p>
-                </header>
+      fotos.forEach(foto => {
+        const fullUrl = `https://lh3.googleusercontent.com/d/${foto.id}=w2000`;
+        const thumbUrl = foto.thumbnailLink || `https://drive.google.com/uc?id=${foto.id}`;
 
-                <div class="pacto-lista">
-                    
-                    <article class="pacto-punto" data-aos="fade-right" data-aos-delay="0">
-                        <div class="numero-punto">1</div>
-                        <h2>Nuestra Adhesión en Cristo</h2>
-                        <p>Habiendo recibido al Señor Jesucristo como nuestro Salvador por la guía del Espíritu Santo, y siendo bautizados en el Nombre del Padre, 
-                            del Hijo y del Espíritu Santo, hoy entramos solemne y gozosamente en este Pacto, uniéndonos de mutuo acuerdo como <strong>un solo cuerpo en Cristo</strong>.</p>
-                    </article>
+        const item = document.createElement("a");
+        item.href = fullUrl;
+        item.classList.add("masonry-item");
+        item.setAttribute("data-pswp-src", fullUrl);
+        item.setAttribute("data-caption", foto.name);
 
-                    <article class="pacto-punto" data-aos="fade-left" data-aos-delay="0">
-                        <div class="numero-punto">2</div>
-                        <h2>Compromiso con la Iglesia y el Evangelio</h2>
-                        <p>Prometemos, con la ayuda del Espíritu Santo, a:</p>
-                        <ul>
-                            <li><strong>Andar juntos en amor cristiano</strong> y procurar el progreso de la Iglesia en conocimiento, santidad y bienestar.</li>
-                            <li><strong>Apoyar</strong> sus servicios, cultos, ordenanzas, disciplina y doctrinas.</li>
-                            <li>Contribuir <strong>alegre y regularmente</strong> con nuestros Diezmos, Ofrendas y Ofrendas Misioneras.</li>
-                        </ul>
-                    </article>
+        const img = document.createElement("img");
+        img.src = thumbUrl;
+        img.alt = foto.name;
 
-                    <article class="pacto-punto" data-aos="fade-right" data-aos-delay="0">
-                        <div class="numero-punto">3</div>
-                        <h2>Conducta Personal y Testimonio</h2>
-                        <p>Prometemos mantener la devoción personal y familiar, educar a nuestros hijos y procurar la salvación de otros. Nos comprometemos a:</p>
-                        <ul>
-                            <li><strong>Andar discretamente</strong> siendo justos y honestos.</li>
-                            <li><strong>Evitar</strong> toda clase de chisme, mentira, crítica, difamación o ira excesiva.</li>
-                            <li><strong>Abstenernos</strong> de la venta y consumo de bebidas alcohólicas.</li>
-                            <li>Ser celosos y diligentes en el extendimiento del Reino.</li>
-                        </ul>
-                    </article>
+        item.appendChild(img);
+        galeria.appendChild(item);
+      });
 
-                    <article class="pacto-punto" data-aos="fade-left" data-aos-delay="0">
-                        <div class="numero-punto">4</div>
-                        <h2>Cuidado Mutuo y Reconciliación</h2>
-                        <p>Prometemos cuidarnos unos a otros en amor cristiano:</p>
-                        <ul>
-                            <li>Recordarnos en oración y ayudarnos en caso de enfermedad o aflicción.</li>
-                            <li>Cultivar la amistad, simpatía y cortesía cristiana.</li>
-                            <li>Ser <strong>lentos para ofendernos</strong> y estar siempre <strong>listos para reconciliarnos</strong> según los principios del Salvador.</li>
-                        </ul>
-                    </article>
+      seccion.appendChild(galeria);
+      contenedor.appendChild(seccion);
 
-                    <article class="pacto-punto" data-aos="fade-left" data-aos-delay="0">
-                        <div class="numero-punto">5</div>
-                        <h2>Fidelidad al Mudarnos</h2>
-                        <p>Nos comprometemos a que, al cambiar de domicilio, nos uniremos tan pronto como sea posible a otra Iglesia de nuestra misma fe y comunión, donde podamos llevar a cabo el espíritu de este Pacto y los principios de la Palabra de Dios.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-        <!-- MISIONES -->
-        <section id="misiones" class="text-center bg-light-gray ">
-            <div class="container">
-                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
-                    <h2  class="mb-4">MISIONES</h2>
-                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
-                </div>
-            </div>
-        </section>
-        <!-- EVENTOS -->
-        <section id="eventos" class="text-center">
-                <div class="container">
-                    <div class="text-center mb-5" data-aos="zoom-in-up" data-aos-delay="0">
-                        <h2 class="mb-4">HORARIO DE SERVICIOS</h2>
-                        <p class="lead text-secondary">Acompáñanos cada semana en nuestros tiempos de adoración, estudio bíblico y oración.</p>
-                    </div>
+      const lightbox = new PhotoSwipeLightbox({
+        gallery: galeria,
+        children: 'a',
+        pswpModule: PhotoSwipe,
+        showHideAnimationType: 'zoom',
+        bgOpacity: 0.95,
+        loop: true
+      });
+      lightbox.init();
+    }
 
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                        
-                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-success">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-success">
-                                        <span class="day-of-week">DOMINGO</span>
-                                        <span class="time-main">10:00 AM - 7:00 PM</span>
-                                    </div>
-                                    
-                                    <h5 class="card-title fw-bold text-dark">Servicio de Adoración General</h5>
-                                    <p class="card-text text-muted">Nuestro servicio principal, con alabanza congregacional, mensaje bíblico y Santa Cena (Primer Domingo del mes).</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-info"></i> Templo Principal</li>
-                                        <li><i class="bi bi-person-fill me-2 text-info"></i> Abierto a toda la familia</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-warning">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-warning">
-                                        <span class="day-of-week">LUNES</span>
-                                        <span class="time-main">7:30 PM</span>
-                                    </div>
-
-                                    <h5 class="card-title fw-bold text-dark">Discipulado</h5>
-                                    <p class="card-text text-muted">Un tiempo más íntimo y enfocado en la enseñanza para crecer en el conocimiento de la Palabra de Dios.</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-info"></i> Templo Principal</li>
-                                        <li><i class="bi bi-people-fill me-2 text-info"></i>  Abierto a toda la familia</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        -->
-                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-primary">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-primary">
-                                        <span class="day-of-week">MARTES</span>
-                                        <span class="time-main">8:00 PM</span>
-                                    </div>
-
-                                    <h5 class="card-title fw-bold text-dark">Culto de Oración</h5>
-                                    <p class="card-text text-muted">Un tiempo más íntimo y enfocado en la enseñanza para crecer en el conocimiento de la Palabra de Dios.</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-primary"></i> Templo Principal</li>
-                                        <li><i class="bi bi-calendar-event-fill me-2 text-primary"></i> Abierto a toda la familia</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-secondary">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-secondary">
-                                        <span class="day-of-week">JUEVES</span>
-                                        <span class="time-main">8:00 PM</span>
-                                    </div>
-                                    
-                                    <h5 class="card-title fw-bold text-dark">Estudio Bíblico</h5>
-                                    <p class="card-text text-muted">Nuestro servicio principal, con alabanza congregacional, mensaje bíblico y Santa Cena (Primer Domingo del mes).</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-secondary"></i> Templo Principal</li>
-                                        <li><i class="bi bi-person-fill me-2 text-secondary"></i> Abierto a toda la familia</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-danger">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-danger">
-                                        <span class="day-of-week">VIERNES</span>
-                                        <span class="time-main">4:00 PM</span>
-                                    </div>
-
-                                    <h5 class="card-title fw-bold text-dark">Reunión de Damas</h5>
-                                    <p class="card-text text-muted">Un tiempo más íntimo y enfocado en la enseñanza para crecer en el conocimiento de la Palabra de Dios.</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-danger"></i> Salón de Conferencias</li>
-                                        <li><i class="bi bi-people-fill me-2 text-danger"></i> Grupos pequeños disponibles</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-warning">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-warning">
-                                        <span class="day-of-week">SÁBADO</span>
-                                        <span class="time-main">3:00 PM</span>
-                                    </div>
-
-                                    <h5 class="card-title fw-bold text-dark">Reunión de Niños</h5>
-                                    <p class="card-text text-muted">Un espacio vibrante para niños con música, juegos y una reflexión sobre temas actuales.</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-warning"></i> Auditorio Anexo</li>
-                                        <li><i class="bi bi-calendar-event-fill me-2 text-warning"></i> Verificar eventos especiales</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-info">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-info">
-                                        <span class="day-of-week">SÁBADO</span>
-                                        <span class="time-main">5:00 PM</span>
-                                    </div>
-
-                                    <h5 class="card-title fw-bold text-dark">Reunión de Adolecentes</h5>
-                                    <p class="card-text text-muted">Un espacio vibrante para adolescentes con música, juegos y una reflexión sobre temas actuales.</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-info"></i> Auditorio Anexo</li>
-                                        <li><i class="bi bi-calendar-event-fill me-2 text-info"></i> Verificar eventos especiales</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-dark">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-dark">
-                                        <span class="day-of-week">SÁBADO</span>
-                                        <span class="time-main">5:00 PM</span>
-                                    </div>
-
-                                    <h5 class="card-title fw-bold text-dark">Reunión de Jovenes</h5>
-                                    <p class="card-text text-muted">Un espacio vibrante para jóvenes con música, juegos y una reflexión sobre temas actuales.</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-dark"></i> Auditorio Anexo</li>
-                                        <li><i class="bi bi-calendar-event-fill me-2 text-dark"></i> Verificar eventos especiales</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-        </section>
-        <!-- DEVOCIONALES -->
-        <section id="devocionales" class="text-center bg-light-gray ">
-            <div class="container">
-                <div class="text-center mb-5" data-aos="fade-left" data-aos-delay="0">
-                    <h2  class="mb-4">DEVOCIONALES</h2>
-                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
-                </div>
-            </div>
-        </section>
-        <!-- PREDICAS -->
-        <section id="predicas" class="text-center">
-            <div class="container">
-                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
-                    <h2  class="mb-4">PREDICAS</h2>
-                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
-                </div>
-            </div>
-        </section>
-        <!-- CONTACTO -->
-        <section id="contacto" class="text-center bg-light-gray">
-            <h2 class="mb-4">CONTACTENOS</h2>
-            <p class="lead text-secondary">Acompáñanos cada semana en nuestros tiempos de adoración, estudio bíblico y oración.</p>
-            <div class="contact-map">
-                <!-- Mapa de Google Maps -->
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.557823873589!2d-77.04874683953294!3d-12.027591425372298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cf244e0ae651%3A0xb18d4dac2855494!2sIglesia%20Bautista%20Jord%C3%A0n!5e0!3m2!1ses-419!2scl!4v1760373702584!5m2!1ses-419!2scl" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-                <!-- Card de contacto flotante -->
-                <div class="contact-card">
-                    <h5>Contáctanos</h5>
-                    <p><strong>Dirección:</strong>Jr. Atanacio Catojeras 102 -104, San Martín de Porres, Lima, Perú</p>
-                    <p><strong>Teléfono:</strong> +56 9 1234 5678</p>
-                    <p><strong>Email:</strong> <a href="mailto:iglesiabautistajordanpinonate@gmail.com" target="_blank">iglesiabautistajordanpinonate@gmail.com</a></p>
-                    <a href="#"  data-bs-toggle="modal" data-bs-target="#contactoModal">Enviar mensaje</a>
-                </div>
-            </div>
-        </section>
-        <div class="modal fade" id="contactoModal" tabindex="-1" aria-labelledby="contactoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="contactoModalLabel">
-                            <i class="bi bi-chat-dots-fill me-2"></i> Envíanos un Mensaje
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-                    
-                    <div class="modal-body">
-                        <p class="text-center text-secondary mb-4">
-                            Estamos aquí para ayudarte. Por favor, llena los campos y te responderemos a la brevedad.
-                        </p>
-                        
-                        <form id="contactForm">
-                            
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre Completo</label>
-                                <input type="text" class="form-control" id="nombre" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="asunto" class="form-label">Asunto (Oración, Pregunta, etc.)</label>
-                                <input type="text" class="form-control" id="asunto">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="mensaje" class="form-label">Tu Mensaje / Petición de Oración</label>
-                                <textarea class="form-control" id="mensaje" rows="4" required></textarea>
-                            </div>
-                            
-                            <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg custom-submit-btn">
-                                    <i class="bi bi-send-fill me-2"></i> Enviar Mensaje
-                                </button>
-                            </div>
-                        </form>
-                        </div>
-                </div>
-            </div>
-        </div>
-        <!-- FOOTER -->
-        <!-- <footer>
-            <div class="container">
-                <div class="col-lg-12">
-                    <p>© 2025 Iglesia Vida Nueva | Todos los derechos reservados</p>
-                </div>
-            </div>
-            
-        </footer> -->
-        <!-- FOOTER -->
-        <footer class="footer text-light pt-5">
-            <div class="container pb-4">
-                <div class="row gy-5">
-                
-                <!-- Logo + descripción -->
-                <div class="col-lg-3 col-md-6">
-                    <div class="d-flex align-items-center mb-3">
-                        <img src="assets/img/logo-blanco.png" alt="Logo Iglesia" style="height:85px; margin-right:12px;">
-                    </div>
-                    <p class="text-secondary">
-                    Proclamamos el Evangelio de Cristo y servimos con amor a nuestra comunidad,
-                    guiados por la Palabra de Dios.
-                    </p>
-
-                    <div class="d-flex mt-3">
-                    <a href="#" class="footer-icon me-3"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="footer-icon me-3"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="footer-icon me-3"><i class="bi bi-youtube"></i></a>
-                    <a href="mailto:iglesiabautistajordanpinonate@gmail.com" class="footer-icon"><i class="bi bi-envelope-fill"></i></a>
-                    </div>
-                </div>
-
-                <!-- Menú -->
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="fw-bold text-uppercase mb-4 text-warning">Menú</h6>
-                    <ul class="list-unstyled text-secondary menu-footer">
-                    <li><a href="#about" class="footer-link">Nosotros</a></li>
-                    <li><a href="#enquecreemos" class="footer-link">En qué creemos</a></li>
-                    <li><a href="#nuestro-pacto" class="footer-link">Nuestro Pacto</a></li>
-                    <li><a href="#misiones" class="footer-link">Misiones</a></li>
-                    <li><a href="#devocionales" class="footer-link">Devocionales</a></li>
-                    <li><a href="#predicas" class="footer-link">Prédicas</a></li>
-                    <li><a href="#contacto" class="footer-link">Contacto</a></li>
-                    </ul>
-                </div>
-
-                <!-- Horarios -->
-                <div class="col-lg-4 col-md-6">
-                    <h6 class="fw-bold text-uppercase mb-4 text-warning">Horarios</h6>
-                    <ul class="list-unstyled text-secondary">
-                        <li><div class="title-hours">Domingo</div><i class="bi bi-clock text-warning me-2"></i>Culto – 10:00 AM y 7:00 PM</li>
-                        <li><div class="title-hours">Lunes</div><i class="bi bi-clock text-warning me-2"></i>Discipulado – 7:00 PM</li>
-                        <li><div class="title-hours">Martes</div><i class="bi bi-clock text-warning me-2"></i>Culto de Oración – 8:00 PM</li>
-                        <li><div class="title-hours">Jueves</div><i class="bi bi-clock text-warning me-2"></i>Estudio Bíblico – 8:00 PM</li>
-                        <li><div class="title-hours">Viernes</div><i class="bi bi-clock text-warning me-2"></i>Reunión de Damas – 4:00 PM</li>
-                        <li><div class="title-hours">Sábado</div><i class="bi bi-clock text-warning me-2"></i>Reunión de niños – 3:00 PM</li>
-                        <li><i class="bi bi-clock text-warning me-2"></i>Reunión de Adolecentes – 5:00 PM</li>
-                        <li><i class="bi bi-clock text-warning me-2"></i>Reunión de Jovenes – 7:00 PM</li>
-                    </ul>
-                </div> 
-                <!-- Contacto -->
-                <div class="col-lg-3 col-md-6">
-                    <h6 class="fw-bold text-uppercase mb-4 text-warning">Contáctanos</h6>
-                    <ul class="list-unstyled text-secondary mb-4">
-                        <li><i class="bi bi-geo-alt-fill text-warning me-2"></i>Jr. Atanacio Catojeras 102 - San Martín de Porres, Lima</li>
-                        <li><i class="bi bi-telephone-fill text-warning me-2"></i>+51 944 223 621</li>
-                        <li><a href="mailto:iglesiabautistajordanpinonate@gmail.com" class="footer-link">iglesiabautistajordanpinonate@gmail.com</a></li>
-                    </ul>
-                    <a href="#contacto" class="btn btn-warning fw-bold rounded-pill px-4 py-2 shadow-sm">Enviar mensaje</a>
-                </div>
-                </div>
-
-                <hr>
-
-                <!-- Copyright -->
-                <div class="text-center">
-                <small class="text-secondary">
-                    © 2025 <strong>Iglesia Bautista Jordán de Piñonate</strong> | Todos los derechos reservados<br>
-                </small>
-                </div>
-            </div>
-        </footer>
-
-        <!-- Bootstrap JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-        <!-- JS para cambio de color en navbar al hacer scroll -->
-
-        <script>
-            const navbar = document.querySelector(".navbar");
-            const heroSection = document.querySelector("#hero");
-
-            window.addEventListener("scroll", () => {
-                const heroHeight = heroSection.offsetHeight;
-                if (window.scrollY >= heroHeight - 10) {
-                navbar.classList.add("scrolled"); // navbar negro
-                } else {
-                navbar.classList.remove("scrolled"); // navbar transparente
-                }
-            });
-
-        </script>
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script>
-            // Inicializar la librería AOS
-            AOS.init({
-                duration: 1000, // Duración predeterminada de la animación en milisegundos (1 segundo)
-                once: true      // La animación solo se ejecuta una vez al hacer scroll hacia abajo
-            });
-        </script>
-    </body>
+    listarCarpetas();
+  </script>
+</body>
 </html>

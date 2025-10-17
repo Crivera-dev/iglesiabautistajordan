@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"></script>
+
+  <title>Collage de Fotos</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .collage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .collage-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .collage-grid img:hover {
+    transform: scale(1.05);
+  }
+
+  /* Imágenes grandes aleatoriamente */
+  .collage-grid img:nth-child(2n) {
+    grid-row: span 2;
+  }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center; margin-top:20px;">Collage de Fotos</h2>
+  <div class="collage-grid">
+    <img src="https://picsum.photos/id/1011/600/400" alt="Foto 1">
+    <img src="https://picsum.photos/id/1012/600/400" alt="Foto 2">
+    <img src="https://picsum.photos/id/1013/600/400" alt="Foto 3">
+    <img src="https://picsum.photos/id/1014/600/400" alt="Foto 4">
+    <img src="https://picsum.photos/id/1015/600/400" alt="Foto 5">
+  </div>
+</body>
+</html>
