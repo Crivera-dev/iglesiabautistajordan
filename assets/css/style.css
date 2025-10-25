@@ -10,7 +10,7 @@
 
 
             .navbar.scrolled {
-                background-color: #001D39;
+                background-color: #001C24;
             }
 
             .navbar-brand img {
@@ -465,7 +465,7 @@
             }
             footer {
 
-                background: #001D39;
+                background: #001C24;
                 color: #bbb;
                 padding: 30px 0 0;
                 text-align: center;
@@ -592,4 +592,83 @@
                 .credo-intro, .credo-bloque p {
                     font-size: 1rem;
                 }
+            }
+
+             /* 🖼️ Galería tipo LightGallery Animated Thumbnails */
+            .lightgallery {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .lightgallery a {
+                display: block;
+                overflow: hidden;
+                /*border-radius: 6px;*/
+                flex: 0 1 auto;
+                line-height: 0;
+                transition: transform 0.3s ease;
+            }
+
+            .lightgallery a img {
+                height: 200px; /* 🔹 Mantén mismo alto para todas las imágenes */
+                width: auto;   /* 🔹 Deja que el ancho varíe según la proporción */
+                object-fit: cover;
+                display: block;
+                transition: transform 0.4s ease;
+                /*border-radius: 6px;*/
+            }
+
+            /* Efecto hover elegante */
+            .lightgallery a:hover img {
+                transform: scale(1.05);
+                filter: brightness(1.1);
+            }
+            .gallery-container h2 {
+                text-align: center;
+                font-weight: bold;
+                color: white;
+                margin-bottom: 1rem;
+                /* border-left: 4px solid #ffc107; */
+                padding-left: 10px;
+                font-size: 24px;
+            }
+
+            .lg-backdrop {
+                background-color: rgba(228, 228, 228, 0.9) !important;
+            }
+            .lg-thumb-outer {
+                background-color: #111 !important;
+            }
+            .galeria{
+                background-color: #001C24;
+                color: #ffc107 !important;
+            }
+            .ver-toda-galeria
+            {
+                text-align: center;
+            }
+            .bg-IBG {
+                background-color: #001C24 !important;
+            }
+            .btn-ver-galerias
+            {
+                background-color: #007BFF !important;
+            }
+            .overlay {
+                background-color: #152630;
+                color: #fff;
+                align-items: center;
+                transition: opacity 0.3s ease;
+                font-size: 1.2rem;
+                text-align: center;
+                border-radius: 8px;
+
+            }
+            .overlay:hover {
+                background-color: #ffc107;
+                color: #fff;
+           
+
             }

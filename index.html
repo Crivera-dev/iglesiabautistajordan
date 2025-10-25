@@ -11,61 +11,26 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link href="assets/css/style.css" rel="stylesheet">
-        <!-- PhotoSwipe -->
-            <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+        <!-- LightGallery -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
 
         <style>
-             .gallery-container {
-            margin-bottom: 60px;
-        }
-
-        /* 🎨 Layout tipo collage con grid */
-        .masonry-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            grid-auto-rows: 8px;
-            grid-gap: 15px;
-            grid-auto-flow: dense;
-        }
-
-        /* Variaciones de tamaño (crea el efecto collage) */
-        .masonry-item:nth-child(6n+1) { grid-row: span 26; }
-        .masonry-item:nth-child(6n+2) { grid-row: span 20; }
-        .masonry-item:nth-child(6n+3) { grid-row: span 28; }
-        .masonry-item:nth-child(6n+4) { grid-row: span 18; }
-        .masonry-item:nth-child(6n+5) { grid-row: span 22; }
-        .masonry-item:nth-child(6n+6) { grid-row: span 25; }
-
-        .masonry-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .masonry-item img {
-            width: auto;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 0px;
-            display: block;
-        }
-.masonry-grid {
-  grid-auto-rows: auto;
-}
-        .masonry-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-        }
-
-        .pswp__bg {
-            background: rgba(0, 0, 0, 0.95) !important;
-        }
-        .pswp__img {
-            object-fit: contain !important;
-            max-width: 100%;
-        }
+            .play-icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 3rem;
+                color: rgba(255, 255, 255, 0.85);
+                transition: 0.3s;
+            }
+            .video-thumbnail:hover .play-icon {
+                color: #ffc107;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
         </style>
     </head>
     <body>
@@ -92,8 +57,9 @@
                 <li class="nav-item"><a class="nav-link" href="#nuestro-pacto">Nuestro Pacto</a></li>
                 <li class="nav-item"><a class="nav-link" href="#misiones">Misiones</a></li>
                 <li class="nav-item"><a class="nav-link" href="#eventos">Servicios</a></li>
+                <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
                 <li class="nav-item"><a class="nav-link" href="#devocionales">Devocionales</a></li>
-                <li class="nav-item"><a class="nav-link" href="#predicas">Prédicas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#predicas">videos</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
             </div>
@@ -365,27 +331,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
-                            <div class="card h-100 shadow-sm horario-card border-warning">
-                                <div class="card-body p-4">
-                                    <div class="day-time-focus mb-3 text-warning">
-                                        <span class="day-of-week">LUNES</span>
-                                        <span class="time-main">7:30 PM</span>
-                                    </div>
-
-                                    <h5 class="card-title fw-bold text-dark">Discipulado</h5>
-                                    <p class="card-text text-muted">Un tiempo más íntimo y enfocado en la enseñanza para crecer en el conocimiento de la Palabra de Dios.</p>
-                                    
-                                    <ul class="list-unstyled mt-3">
-                                        <li><i class="bi bi-geo-alt-fill me-2 text-info"></i> Templo Principal</li>
-                                        <li><i class="bi bi-people-fill me-2 text-info"></i>  Abierto a toda la familia</li>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        -->
                         <div class="col" data-aos="zoom-in-up" data-aos-delay="0">
                             <div class="card h-100 shadow-sm horario-card border-primary">
                                 <div class="card-body p-4">
@@ -509,6 +454,23 @@
                     </div>
                 </div>
         </section>
+        
+        <!-- GALERIAS -->
+        <section id="galeria" class="text-center galeria">
+            <div class="container-fluid">
+                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
+                    <h2  class="mb-4">GALERIA DE FOTOS</h2>
+                    <div id="contenedorGalerias" class="row gy-5"></div>
+                    <div class="gallery-item">
+                        <a href="/galerias.html">
+                            <div class=" btn overlay">
+                            <span><i class="bi bi-camera-fill"></i> Ver todas las galerías</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- DEVOCIONALES -->
         <section id="devocionales" class="text-center bg-light-gray ">
             <div class="container">
@@ -519,20 +481,11 @@
             </div>
         </section>
         <!-- PREDICAS -->
-        <section id="predicas" class="text-center">
+        <section id="predicas" class="text-center galeria">
             <div class="container">
                 <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
-                    <h2  class="mb-4">GALERIA DE FOTOS</h2>
-                    <div id="contenedorGalerias" class="row gy-5"></div>
-                </div>
-            </div>
-        </section>
-        <!-- PREDICAS -->
-        <section id="galeria" class="text-center">
-            <div class="container">
-                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
-                    <h2  class="mb-4">PREDICAS</h2>
-                    <h3 class="text-primary fw-light mb-4">Iglesia Bautista Jordán de Piñonate</h3>
+                    <h2  class="mb-4">VIDEOS RECIENTES</h2>
+                    <div id="contenedorVideos" class="row gy-4 justify-content-center"></div>
                 </div>
             </div>
         </section>
@@ -560,7 +513,7 @@
         <div class="modal fade" id="contactoModal" tabindex="-1" aria-labelledby="contactoModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
+                    <div class="modal-header bg-IBG text-white">
                         <h5 class="modal-title" id="contactoModalLabel">
                             <i class="bi bi-chat-dots-fill me-2"></i> Envíanos un Mensaje
                         </h5>
@@ -595,7 +548,7 @@
                             </div>
                             
                             <div class="d-grid mt-4">
-                                <button type="submit" class="btn btn-primary btn-lg custom-submit-btn">
+                                <button type="submit" class="btn btn-warning fw-bold rounded-pill px-4 py-2 shadow-sm">
                                     <i class="bi bi-send-fill me-2"></i> Enviar Mensaje
                                 </button>
                             </div>
@@ -623,6 +576,20 @@
             </div>
             
         </footer> -->
+
+        <!-- Modal para reproducir video -->
+        <div class="modal fade" id="modalVideo" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark border-0">
+            <div class="modal-body p-0 position-relative">
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+                <div class="ratio ratio-16x9">
+                <iframe id="youtubeFrame" src="" allowfullscreen></iframe>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
         <!-- FOOTER -->
         <footer class="footer text-light pt-5">
             <div class="container pb-4">
@@ -654,8 +621,10 @@
                     <li><a href="#enquecreemos" class="footer-link">En qué creemos</a></li>
                     <li><a href="#nuestro-pacto" class="footer-link">Nuestro Pacto</a></li>
                     <li><a href="#misiones" class="footer-link">Misiones</a></li>
+                    <li><a href="#eventos" class="footer-link">Servicios</a></li>
+                    <li><a href="#galeria" class="footer-link">Galería</a></li>
                     <li><a href="#devocionales" class="footer-link">Devocionales</a></li>
-                    <li><a href="#predicas" class="footer-link">Prédicas</a></li>
+                    <li><a href="#predicas" class="footer-link">Videos</a></li>
                     <li><a href="#contacto" class="footer-link">Contacto</a></li>
                     </ul>
                 </div>
@@ -682,7 +651,7 @@
                         <li><i class="bi bi-telephone-fill text-warning me-2"></i>+51 944 223 621</li>
                         <li><a href="mailto:iglesiabautistajordanpinonate@gmail.com" class="footer-link">iglesiabautistajordanpinonate@gmail.com</a></li>
                     </ul>
-                    <a href="#contacto" class="btn btn-warning fw-bold rounded-pill px-4 py-2 shadow-sm">Enviar mensaje</a>
+                    <a href="#contacto" class="btn btn-warning fw-bold rounded-pill px-4 py-2 shadow-sm"  data-bs-toggle="modal" data-bs-target="#contactoModal">Enviar mensaje</a>
                 </div>
                 </div>
 
@@ -724,80 +693,154 @@
                 once: true      // La animación solo se ejecuta una vez al hacer scroll hacia abajo
             });
         </script>
-<script type="module">
-    import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js";
-    import PhotoSwipe from "https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js";
+    <script type="module">
+        import PhotoSwipeLightbox from "https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js";
+        import PhotoSwipe from "https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js";
 
-    const apiKey = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
-    const folderId = "198wIK8CuPewt3G2gAKxVmlKQx-cSp9tg";
 
-    async function listarCarpetas() {
-      const res = await fetch(
-        `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and mimeType='application/vnd.google-apps.folder'&fields=files(id,name)&key=${apiKey}`
-      );
-      const data = await res.json();
-      for (const carpeta of data.files) {
-        await mostrarGaleriaDeCarpeta(carpeta);
-      }
-    }
+        const apiKey = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
+        const folderId = "198wIK8CuPewt3G2gAKxVmlKQx-cSp9tg";
 
-    async function listarFotosDeCarpeta(carpetaId) {
-      const res = await fetch(
-        `https://www.googleapis.com/drive/v3/files?q='${carpetaId}' in parents and mimeType contains 'image/' and trashed=false&fields=files(id,name,thumbnailLink)&key=${apiKey}`
-      );
-      const data = await res.json();
-      return data.files;
-    }
+        async function listarCarpetas() {
+            const res = await fetch(
+                `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and mimeType='application/vnd.google-apps.folder'&fields=files(id,name)&key=${apiKey}`
+            );
+            const data = await res.json();
+            //Lista todas las carpetas encontradas
+            /*for (const carpeta of data.files) {
+                await mostrarGaleriaDeCarpeta(carpeta);
+            }*/
 
-    async function mostrarGaleriaDeCarpeta(carpeta) {
-      const fotos = await listarFotosDeCarpeta(carpeta.id);
-      if (!fotos || fotos.length === 0) return;
+            //Lista solo la primera carpeta encontrada
+            if (data.files.length > 0) {
+                const ultimaCarpeta = data.files[0];
+                await mostrarGaleriaDeCarpeta(ultimaCarpeta);
+            } else {
+                console.log("No se encontraron carpetas.");
+            }
+        }
 
-      const contenedor = document.getElementById("contenedorGalerias");
+        async function listarFotosDeCarpeta(carpetaId) {
+            const res = await fetch(
+                `https://www.googleapis.com/drive/v3/files?q='${carpetaId}' in parents and mimeType contains 'image/' and trashed=false&fields=files(id,name,thumbnailLink)&key=${apiKey}`
+            );
+            const data = await res.json();
+            return data.files;
+        }
 
-      const seccion = document.createElement("div");
-      seccion.classList.add("gallery-container");
+        async function mostrarGaleriaDeCarpeta(carpeta) 
+        {
+            const fotos = await listarFotosDeCarpeta(carpeta.id);
+            if (!fotos || fotos.length === 0) return;
 
-      const titulo = document.createElement("h2");
-      titulo.textContent = carpeta.name;
-      seccion.appendChild(titulo);
+            const contenedor = document.getElementById("contenedorGalerias");
 
-      const galeria = document.createElement("div");
-      galeria.classList.add("masonry-grid", "pswp-gallery");
+            const seccion = document.createElement("div");
+            seccion.classList.add("gallery-container", "mb-5");
 
-      fotos.forEach(foto => {
-        const fullUrl = `https://lh3.googleusercontent.com/d/${foto.id}=w2000`;
-        const thumbUrl = foto.thumbnailLink || `https://drive.google.com/uc?id=${foto.id}`;
+            const titulo = document.createElement("h2");
+            titulo.textContent = carpeta.name;
+            titulo.classList.add("mb-4", "fw-bold");
+            seccion.appendChild(titulo);
 
-        const item = document.createElement("a");
-        item.href = fullUrl;
-        item.classList.add("masonry-item");
-        item.setAttribute("data-pswp-src", fullUrl);
-        item.setAttribute("data-caption", foto.name);
+            const galeria = document.createElement("div");
+            galeria.classList.add("lightgallery");
+            galeria.id = `galeria-${carpeta.id}`;
 
-        const img = document.createElement("img");
-        img.src = thumbUrl;
-        img.alt = foto.name;
+            fotos.forEach(foto => {
+                const fullUrl = `https://lh3.googleusercontent.com/d/${foto.id}=w2000`;
+                const thumbUrl = foto.thumbnailLink || `https://drive.google.com/uc?id=${foto.id}`;
 
-        item.appendChild(img);
-        galeria.appendChild(item);
-      });
+                const link = document.createElement("a");
+                link.href = fullUrl;
+                link.setAttribute("data-sub-html", `<h4>${foto.name}</h4>`);
 
-      seccion.appendChild(galeria);
-      contenedor.appendChild(seccion);
+                const img = document.createElement("img");
+                img.src = thumbUrl;
+                img.alt = foto.name;
 
-      const lightbox = new PhotoSwipeLightbox({
-        gallery: galeria,
-        children: 'a',
-        pswpModule: PhotoSwipe,
-        showHideAnimationType: 'zoom',
-        bgOpacity: 0.95,
-        loop: true
-      });
-      lightbox.init();
-    }
+                link.appendChild(img);
+                galeria.appendChild(link);
+            });
 
-    listarCarpetas();
-  </script>
+            seccion.appendChild(galeria);
+            contenedor.appendChild(seccion);
+
+            lightGallery(galeria, {
+                plugins: [lgZoom, lgThumbnail],
+                speed: 500,
+                thumbnail: true,
+                animateThumb: true,
+                showThumbByDefault: true,
+                download: false
+            });
+        }
+
+        listarCarpetas();
+    </script>
+
+    <script>
+            const apiKeys = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
+            const channelId = "UC-8S74z-luj-bFuEwlGOQLw"; // <-- pega aquí tu ID de canal
+            const maxResults = 6; // número de videos que quieres mostrar
+
+            async function cargarVideos() {
+            const res = await fetch(
+                `https://www.googleapis.com/youtube/v3/search?key=${apiKeys}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`
+            );
+            const data = await res.json();
+
+            const contenedor = document.getElementById("contenedorVideos");
+            contenedor.innerHTML = "";
+
+            data.items.forEach(video => {
+                if (video.id.kind === "youtube#video") {
+                const videoId = video.id.videoId;
+                const titulo = video.snippet.title;
+                const thumbnail = video.snippet.thumbnails.medium.url;
+
+                const col = document.createElement("div");
+                col.classList.add("col-12", "col-md-4", "col-lg-3");
+                col.setAttribute("data-aos", "zoom-in-up");
+
+                col.innerHTML = `
+                    <div class="card shadow-sm border-0">
+                    <div class="position-relative video-thumbnail" data-video="${videoId}" data-bs-toggle="modal" data-bs-target="#modalVideo">
+                        <img src="${thumbnail}" class="card-img-top" alt="${titulo}">
+                        <div class="play-icon"><i class="bi bi-play-circle-fill"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title text-dark">${titulo}</h6>
+                    </div>
+                    </div>
+                `;
+                contenedor.appendChild(col);
+                }
+            });
+
+            // Evento para reproducir dentro del modal
+            document.querySelectorAll(".video-thumbnail").forEach(el => {
+                el.addEventListener("click", () => {
+                const videoId = el.getAttribute("data-video");
+                const iframe = document.getElementById("youtubeFrame");
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                });
+            });
+
+            // Limpiar el iframe al cerrar el modal
+            document.getElementById("modalVideo").addEventListener("hidden.bs.modal", () => {
+                document.getElementById("youtubeFrame").src = "";
+            });
+
+            AOS.refresh();
+            }
+
+            cargarVideos();
+</script>
+
+    <!-- LightGallery JS -->
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
     </body>
 </html>
