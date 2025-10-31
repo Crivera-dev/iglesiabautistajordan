@@ -18,19 +18,125 @@
         <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
 
         <style>
-            .play-icon {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 3rem;
-                color: rgba(255, 255, 255, 0.85);
-                transition: 0.3s;
+           .netflix-gallery {
+            position: relative;
+            overflow: hidden;
+            padding: 5px 0;
+        }
+
+        .gallery-wrapper {
+            display: flex;
+            gap: 8px;
+            transition: transform 0.5s ease;
+        }
+
+        .netflix-card {
+            min-width: calc(25% - 6px);
+            aspect-ratio: 16/9;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, z-index 0s 0.3s;
+            flex-shrink: 0;
+        }
+
+        .netflix-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .netflix-card:hover {
+            transform: scale(1.5);
+            z-index: 10;
+            transition: transform 0.3s ease, z-index 0s 0s;
+        }
+
+        .netflix-card:hover img {
+            filter: brightness(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 40px 12px 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .netflix-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 100%;
+            cursor: pointer;
+            z-index: 5;
+            font-size: 2rem;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .nav-arrow.prev {
+            left: 0;
+        }
+
+        .nav-arrow.next {
+            right: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .netflix-card {
+                min-width: calc(33.333% - 6px);
             }
-            .video-thumbnail:hover .play-icon {
-                color: #ffc107;
-                transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .netflix-card {
+                min-width: calc(50% - 4px);
             }
+            
+            .netflix-card:hover {
+                transform: scale(1.2);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .netflix-card {
+                min-width: calc(100% - 8px);
+            }
+        }
         </style>
     </head>
     <body>
@@ -74,7 +180,7 @@
             </video>
 
             <div class="container hero-content">
-            <h1 class="mb-3">Iglesia Bautista Jodán de Piñonate</h1>
+            <h1 class="mb-3">Iglesia Bautista Jordán de Piñonate</h1>
             <p>Somos la Iglesia de Cristo, proclamamos el Evangelio y vivimos según su Palabra.</p>
             <p>"Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura." – Marcos 16:15 (RVR1960)</p>
             <a href="#about" class="btn btn-hero">Conócenos</a>
@@ -482,13 +588,25 @@
         </section>
         <!-- PREDICAS -->
         <section id="predicas" class="text-center galeria">
-            <div class="container">
-                <div class="text-center mb-5" data-aos="fade-right" data-aos-delay="0">
-                    <h2  class="mb-4">VIDEOS RECIENTES</h2>
-                    <div id="contenedorVideos" class="row gy-4 justify-content-center"></div>
+            <div class="container-fluid py-4 px-md-4">
+                <div class="mb-4 text-center">
+                    <h2 class="h4 fw-semibold text-warning">VIDEOS RECIENTES</h2>
+                </div>
+
+                <div class="netflix-gallery">
+                    <button class="nav-arrow prev" onclick="scrollGallery(-1)">
+                    <i class="bi bi-chevron-left"></i>
+                    </button>
+
+                    <div class="gallery-wrapper" id="galleryWrapper"></div>
+
+                    <button class="nav-arrow next" onclick="scrollGallery(1)">
+                    <i class="bi bi-chevron-right"></i>
+                    </button>
                 </div>
             </div>
-        </section>
+        </section> 
+
         <!-- CONTACTO -->
         <section id="contacto" class="text-center bg-light-gray">
             <h2 class="mb-4">CONTACTENOS</h2>
@@ -579,16 +697,16 @@
 
         <!-- Modal para reproducir video -->
         <div class="modal fade" id="modalVideo" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-dark border-0">
-            <div class="modal-body p-0 position-relative">
-                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
-                <div class="ratio ratio-16x9">
-                <iframe id="youtubeFrame" src="" allowfullscreen></iframe>
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content bg-dark border-0">
+                <div class="modal-body p-0 position-relative">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+                    <div class="ratio ratio-16x9">
+                    <iframe id="youtubeFrame" src="" allowfullscreen></iframe>
+                    </div>
+                </div>
                 </div>
             </div>
-            </div>
-        </div>
         </div>
         <!-- FOOTER -->
         <footer class="footer text-light pt-5">
@@ -780,8 +898,9 @@
     </script>
 
     <script>
+        
             const apiKeys = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
-            const channelId = "UC-8S74z-luj-bFuEwlGOQLw"; // <-- pega aquí tu ID de canal
+            const channelId = "UCkccyEbqhhM3uKOI6Shm-4Q"; // UC-8S74z-luj-bFuEwlGOQLw<-- pega aquí tu ID de canal
             const maxResults = 6; // número de videos que quieres mostrar
 
             async function cargarVideos() {
@@ -790,7 +909,7 @@
             );
             const data = await res.json();
 
-            const contenedor = document.getElementById("contenedorVideos");
+            const contenedor = document.getElementById("galleryWrapper");
             contenedor.innerHTML = "";
 
             data.items.forEach(video => {
@@ -800,8 +919,8 @@
                 const thumbnail = video.snippet.thumbnails.medium.url;
 
                 const col = document.createElement("div");
-                col.classList.add("col-12", "col-md-4", "col-lg-3");
-                col.setAttribute("data-aos", "zoom-in-up");
+                col.classList.add("netflix-card");
+                // col.setAttribute("data-aos", "zoom-in-up");
 
                 col.innerHTML = `
                     <div class="card shadow-sm border-0">
@@ -836,7 +955,30 @@
             }
 
             cargarVideos();
+            
 </script>
+ <script>
+        const galleryWrapper = document.getElementById('galleryWrapper');
+        let currentPosition = 0;
+        
+        function scrollGallery(direction) {
+            const card = galleryWrapper.querySelector('.netflix-card');
+            const cardWidth = card.offsetWidth;
+            const gap = 8;
+            const scrollAmount = (cardWidth + gap) * 4;
+            const maxScroll = -(galleryWrapper.scrollWidth - galleryWrapper.parentElement.offsetWidth);
+            
+            currentPosition += direction * scrollAmount * -1;
+            currentPosition = Math.max(maxScroll, Math.min(0, currentPosition));
+            
+            galleryWrapper.style.transform = `translateX(${currentPosition}px)`;
+        }
+
+        window.addEventListener('resize', () => {
+            currentPosition = 0;
+            galleryWrapper.style.transform = 'translateX(0)';
+        });
+    </script>
 
     <!-- LightGallery JS -->
 <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
