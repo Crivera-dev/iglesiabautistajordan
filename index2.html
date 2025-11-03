@@ -38,7 +38,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
    <script>
         
-            const apiKeys = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
+          /*  const apiKeys = "AIzaSyAVZLFo5wJv_LokSiyVDMIi96yT_queamc";
             const channelId = "UC-8S74z-luj-bFuEwlGOQLw"; //UCkccyEbqhhM3uKOI6Shm-4Q <-- pega aquí tu ID de canal
             const maxResults = 6; // número de videos que quieres mostrar
 
@@ -47,6 +47,7 @@
                 `https://www.googleapis.com/youtube/v3/search?key=${apiKeys}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`
             );
             const data = await res.json();
+            console.log(data);
 
             const indicator = document.getElementById("indicators");
             indicator.innerHTML = "";
@@ -138,7 +139,91 @@
                   iframe.src = iframe.src;
                 });
               });
-            });
+            });*/
+
+
+
+
+
+
+</script>
+<script>
+const channelId = "UCkccyEbqhhM3uKOI6Shm-4Q"; // 🔹 Reemplaza con tu ID real
+const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+const container = document.getElementById("galleryWrapper");
+
+ const indicator = document.getElementById("indicators");
+            indicator.innerHTML = "";
+
+ var primero = true;
+
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`)
+  .then(response => response.json())
+  .then(data => {
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(data.contents, "text/xml");
+    const entries = xml.querySelectorAll("entry");
+
+    let html = "";
+    let active = "";
+    entries.forEach((entry, i) => {
+      if (i >= 6) return; // 🔸 Solo mostrar los 6 más recientes
+      const titulo = entry.querySelector("title").textContent;
+      const description= entry.querySelector("description").textContent;
+      const link = entry.querySelector("link").getAttribute("href");
+      const published = new Date(entry.querySelector("published").textContent);
+      const videoId = link.split("v=")[1];
+      const thumbnail = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
+      if (primero) {
+                      active=" active";
+                  
+                  }else{
+                    active="";
+                  }
+      html += `
+        <div class="carousel-item${active}">
+          <div class="card ">     
+            <div class="card-body">
+              <div class="ratio ratio-21x9">
+                <iframe
+                  src="https://www.youtube.com/embed/${videoId}?rel=0&autoplay=0&mute=0"
+                  title="Video de YouTube"
+                  allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-caption d-none d-md-block caption">
+            <h5>${titulo}</h5>
+            <p>${description}</p>
+          </div>
+        </div>
+        `;
+
+         // Crear indicadores
+                  const button = document.createElement("button");
+                  button.type = "button";
+                  button.setAttribute("data-bs-target", "#carouselExampleCaptions");
+                  button.setAttribute("data-bs-slide-to", indicator.children.length);
+                  button.setAttribute("aria-label", `Slide ${indicator.children.length + 1}`);
+                  if (primero) {
+                      button.classList.add("active");
+                      button.setAttribute("aria-current", "true");
+                      primero = false;
+                  }
+                  indicator.appendChild(button);
+                
+    });
+
+    container.innerHTML = html;
+
+  })
+  .catch(error => {
+    console.error("Error al cargar el feed:", error);
+    container.innerHTML = "<p>No se pudieron cargar los videos.</p>";
+  });
 </script>
 </body>
 </html>
